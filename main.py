@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO, filename="bot_log.csv", filemode="w",
 
 MSG = "{}, Жмякни кнопку внизу, и я скину тебе мою фотку=)"
 
-bot = Bot("6012678486:AAEkMXJOmBjStU1kbadh6yuTBhDIdkoh7oo")
+bot = Bot("")
 dp = Dispatcher(bot=bot)
 img_count = counter()
 
