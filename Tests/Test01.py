@@ -1,8 +1,4 @@
-from os import *
+check = {413687869: "Валера", 582499322: "Таня", 493072257: "Паша"}
 
-i = 0
-while path.isfile(f'{i}.jpg'):
-    i+=1
-
-print(i)
-
+if 493072257 in check.keys():
+    print(123)
