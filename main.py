@@ -57,8 +57,7 @@ async def photo_handler(message: types.Message):
 @dp.message_handler(content_types=['photo'])
 async def handle_docs_photo(message):
     global img_count
-    flag = False
-    answers = ['М-м-м, да я красавчик!', 'Чёрт, как я хорош!', 'Просто лучший!',
+    answers = ['М-м-м, да я красавчик!', 'Боже, как я хорош!', 'Просто лучший!',
                'Говорят, телефон высасывает душу.\nЧто ж, пусть высосет из меня всю=)',
                'А-у-у-у-у-у!']
     ans = random.randint(0, len(answers) - 1)
@@ -67,15 +66,14 @@ async def handle_docs_photo(message):
     if chatId in check.keys():
         print(f'{dt.datetime.now()}\t{chatId}\t{message.chat.full_name}\tnew photo {img_count}.jpg')
         loger((dt.datetime.now(), chatId, message.chat.full_name, 'Take'))
-        flag = True
         await message.photo[-1].download(f'photo\{counting()}.jpg')
-    else:
-        print(f'{dt.datetime.now()}\t{chatId}\t{message.from_user.full_name}\tTrying to send a photo')
-        loger((dt.datetime.now(), chatId, message.chat.full_name, 'Trying send'))
-    if flag:
         await bot.send_message(message.from_user.id, answers[ans])
         await bot.send_message(message.from_user.id, f'Спасибо, {check[chatId]}')
         await bot.send_message(message.from_user.id, 'Есть ещё?)')
+    else:
+        print(f'{dt.datetime.now()}\t{chatId}\t{message.from_user.full_name}\tTrying to send a photo')
+        loger((dt.datetime.now(), chatId, message.chat.full_name, 'Trying send'))
+
 
 
 def counting():

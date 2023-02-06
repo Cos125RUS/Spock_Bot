@@ -1,3 +1,5 @@
 2023-02-06 14:59:36,694: INFO _welcome-362 Bot: Spock [@Spock1_photo_bot]
 2023-02-06 14:59:36,694: INFO start_polling-358 Start polling.
 2023-02-06 14:59:43,952: INFO start_handler-26 user_id=413687869 user_bot=False user_message='/start'
+2023-02-06 15:02:35,174: INFO stop_polling-433 Stop polling...
+2023-02-06 15:02:35,174: WARNING start_polling-329 Goodbye!
