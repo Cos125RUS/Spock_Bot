@@ -11,9 +11,11 @@ logging.basicConfig(level=logging.INFO, filename="bot_log.csv", filemode="w",
 
 MSG = "{}, Жмякни кнопку внизу, и я скину тебе мою фотку=)"
 
+# bot = Bot("5643214927:AAHBaSv6StJppul8z1F1y8oS-dGLakVBC-k") # TestBot
 bot = Bot("6012678486:AAEkMXJOmBjStU1kbadh6yuTBhDIdkoh7oo")
 dp = Dispatcher(bot=bot)
 img_count = counter()
+flag: bool
 
 
 @dp.message_handler(commands=['start'])
@@ -57,19 +59,16 @@ async def photo_handler(message: types.Message):
 @dp.message_handler(content_types=['photo'])
 async def handle_docs_photo(message):
     global img_count
-    answers = ['М-м-м, да я красавчик!', 'Боже, как я хорош!', 'Просто лучший!',
-               'Говорят, телефон высасывает душу.\nЧто ж, пусть высосет из меня всю=)',
-               'А-у-у-у-у-у!']
-    ans = random.randint(0, len(answers) - 1)
+    global flag
+    flag = True
     chatId = message.chat.id
     check = {413687869: "Валера", 582499322: "Таня", 493072257: "Паша", 562407291: "Тома"}
     if chatId in check.keys():
         print(f'{dt.datetime.now()}\t{chatId}\t{message.chat.full_name}\tnew photo {img_count}.jpg')
         loger((dt.datetime.now(), chatId, message.chat.full_name, 'Take'))
         await message.photo[-1].download(f'photo\{counting()}.jpg')
-        await bot.send_message(message.from_user.id, answers[ans])
-        await bot.send_message(message.from_user.id, f'Спасибо, {check[chatId]}')
-        await bot.send_message(message.from_user.id, 'Есть ещё?)')
+        # await message.photo[-1].download(f'Tests\{counting()}.jpg') # Test
+        await bot.send_message(message.from_user.id, get_answers(check[chatId]))
     else:
         print(f'{dt.datetime.now()}\t{chatId}\t{message.from_user.full_name}\tTrying to send a photo')
         loger((dt.datetime.now(), chatId, message.chat.full_name, 'Trying send'))
@@ -87,6 +86,18 @@ def loger(data):
     log = f'{time};{userID};{userName};{act}\n'
     with open('activity_log.csv', 'a') as file:
         file.write(log)
+
+
+def get_answers(name):
+    global flag
+    if flag:
+        flag = False
+        options = ['М-м-м, да я красавчик!', 'Боже, как я хорош!', 'Просто лучший!',
+                   'Говорят, телефон высасывает душу.\nЧто ж, пусть высосет из меня всю=)',
+                   'А-у-у-у-у-у!']
+        rand = random.randint(0, len(options) - 1)
+        answer = options[rand] + f'\nСпасибо, {name}\nЕсть ещё?)'
+        return answer
 
 
 if __name__ == '__main__':
