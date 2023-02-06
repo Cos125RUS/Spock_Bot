@@ -27,7 +27,7 @@ async def start_handler(message: types.Message):
     await message.reply(f"Привет, человек!")
     await message.reply(f"Как сам?")
     time.sleep(1)
-    btns = types.ReplyKeyboardMarkup(row_width=1)
+    btns = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
     btn_photo = types.KeyboardButton('/Photo')
     btns.add(btn_photo)
     await bot.send_message(user_id, MSG.format(user_name), reply_markup=btns)
